@@ -1,6 +1,9 @@
 
 public class BaseballElimination {
 	
+	
+	// As in the second assignment, file will probably be in the src if in 
+	// command line or in the root if run on Eclipse
 	public BaseballElimination(String filename) {				   // create a baseball division from given filename in format specified below
 	}
 	
