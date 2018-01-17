@@ -1,3 +1,4 @@
+import edu.princeton.cs.algs4.In;
 
 public class BaseballElimination {
 	
@@ -5,6 +6,11 @@ public class BaseballElimination {
 	// As in the second assignment, file will probably be in the src if in 
 	// command line or in the root if run on Eclipse
 	public BaseballElimination(String filename) {				   // create a baseball division from given filename in format specified below
+		In in = new In(filename);
+		while (!in.isEmpty()) {
+			int x = in.readInt();
+			System.out.println(x);
+		}
 	}
 	
 //	public              int numberOfTeams()                        // number of teams
@@ -18,6 +24,8 @@ public class BaseballElimination {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		
+		BaseballElimination baseballTest = new BaseballElimination("C:/Users/ffonseca/workspace/Algorithms_2_Princeton_Assignment_3/test.txt");
 
 	}
 
