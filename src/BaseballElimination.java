@@ -8,7 +8,8 @@ public class BaseballElimination {
 	// on assignment 1 of Algorithms 2 (synsets assignment)
 	public BaseballElimination(String filename) {				   // create a baseball division from given filename in format specified below
 		In in = new In(filename);
-//		int n = in.readInt();
+		int n = in.readInt();
+		in.readLine(); //skips blank character after reading n
 		while (!in.isEmpty()) {
 			String line = in.readLine();
 			String [] fields = line.split(" ");
@@ -30,7 +31,7 @@ public class BaseballElimination {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
-		BaseballElimination baseballTest = new BaseballElimination("C:/Users/ffonseca/workspace/Algorithms_2_Princeton_Assignment_3/test.txt");
+		BaseballElimination baseballTest = new BaseballElimination("C:/Users/ffonseca/workspace/Algorithms_2_Princeton_Assignment_3/teams5.txt");
 
 	}
 
