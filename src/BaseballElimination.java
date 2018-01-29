@@ -3,6 +3,9 @@ import edu.princeton.cs.algs4.In;
 public class BaseballElimination {
 	
 	private int n; //number of teams
+	private String[] team; //name  of the team
+	private int[] w, l, r; //number of wins, losses and remaining games of teach team
+	private int[][] g; // games left to play of team i against team j
 	
 	// As in the second assignment, file will probably be in the src if in 
 	// command line or in the root if run on Eclipse. Used similar structure 
