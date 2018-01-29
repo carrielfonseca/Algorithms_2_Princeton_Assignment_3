@@ -2,13 +2,14 @@ import edu.princeton.cs.algs4.In;
 
 public class BaseballElimination {
 	
+	private int n; //number of teams
 	
 	// As in the second assignment, file will probably be in the src if in 
 	// command line or in the root if run on Eclipse. Used similar structure 
 	// on assignment 1 of Algorithms 2 (synsets assignment)
-	public BaseballElimination(String filename) {				   // create a baseball division from given filename in format specified below
+	public BaseballElimination(String filename) {	// create a baseball division from given filename in format specified below
 		In in = new In(filename);
-		int n = in.readInt();
+		n = in.readInt();
 		in.readLine(); //skips blank character after reading n
 		while (!in.isEmpty()) {
 			String line = in.readLine();
@@ -19,7 +20,10 @@ public class BaseballElimination {
 		}
 	}
 	
-//	public              int numberOfTeams()                        // number of teams
+	public int numberOfTeams() {  // number of teams
+		return n;
+	}
+	
 //	public Iterable<String> teams()                                // all teams
 //	public              int wins(String team)                      // number of wins for given team
 //	public              int losses(String team)                    // number of losses for given team
