@@ -55,8 +55,31 @@ public class BaseballElimination {
 		}		
 		return w[i];
 	}
-//	public              int losses(String team)                    // number of losses for given team
-//	public              int remaining(String team)                 // number of remaining games for given team
+	
+	public int losses(String team)  {                  // number of losses for given team
+		int i = 0;
+		for(String teamName : teams) {
+			if(teamName.equalsIgnoreCase(team)) {
+				break;
+			}
+			i++;	
+		}		
+		return l[i];
+	}
+	
+	public	int remaining(String team)	{           // number of remaining games for given team
+		int i = 0;
+		for(String teamName : teams) {
+			if(teamName.equalsIgnoreCase(team)) {
+				break;
+			}
+			i++;	
+		}		
+		return r[i];
+	}
+	
+		
+	
 //	public              int against(String team1, String team2)    // number of remaining games between team1 and team2
 //	public          boolean isEliminated(String team)              // is given team eliminated?
 //	public Iterable<String> certificateOfElimination(String team)  // subset R of teams that eliminates given team; null if not eliminated
