@@ -15,11 +15,18 @@ public class BaseballElimination {
 	public BaseballElimination(String filename) {	// create a baseball division from given filename in format specified below
 		In in = new In(filename);
 		n = in.readInt();
+		w = new int[n];
+		l = new int[n];
+		r = new int[n];
+		g = new int[n][n];
 		in.readLine(); //skips blank character after reading n
 		while (!in.isEmpty()) {
 			String line = in.readLine();
 			String [] fields = line.split(" ");
 			//TODO put here each field in the correspondent structure
+			for(String field : fields) {
+				
+			}
 			
 			
 		}
