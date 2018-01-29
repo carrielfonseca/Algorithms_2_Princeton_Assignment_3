@@ -13,6 +13,7 @@ public class BaseballElimination {
 	// command line or in the root if run on Eclipse. Used similar structure 
 	// on assignment 1 of Algorithms 2 (synsets assignment)
 	public BaseballElimination(String filename) {	// create a baseball division from given filename in format specified below
+		int i = 0;
 		In in = new In(filename);
 		n = in.readInt();
 		w = new int[n];
@@ -24,11 +25,13 @@ public class BaseballElimination {
 			String line = in.readLine();
 			String [] fields = line.split(" ");
 			//TODO put here each field in the correspondent structure
-			for(String field : fields) {
-				
-			}
-			
-			
+			w[i] = Integer.parseInt(fields[0]);
+			l[i] = Integer.parseInt(fields[1]);
+			r[i] = Integer.parseInt(fields[2]);
+			for(int j = 0;j < n;j++) {
+				g[i][j] =  Integer.parseInt(fields[j+3]);
+			}				
+			i++;
 		}
 	}
 	
