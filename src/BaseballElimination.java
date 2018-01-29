@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 import edu.princeton.cs.algs4.In;
@@ -16,6 +17,7 @@ public class BaseballElimination {
 		int i = 0;
 		In in = new In(filename);
 		n = in.readInt();
+		teams = new ArrayList<>();
 		w = new int[n];
 		l = new int[n];
 		r = new int[n];
@@ -24,12 +26,12 @@ public class BaseballElimination {
 		while (!in.isEmpty()) {
 			String line = in.readLine();
 			String [] fields = line.split(" ");
-			//TODO put here each field in the correspondent structure
-			w[i] = Integer.parseInt(fields[0]);
-			l[i] = Integer.parseInt(fields[1]);
-			r[i] = Integer.parseInt(fields[2]);
+			teams.add(fields[1]);
+			w[i] = Integer.parseInt(fields[2]);
+			l[i] = Integer.parseInt(fields[3]);
+			r[i] = Integer.parseInt(fields[4]);
 			for(int j = 0;j < n;j++) {
-				g[i][j] =  Integer.parseInt(fields[j+3]);
+				g[i][j] =  Integer.parseInt(fields[j+5]);
 			}				
 			i++;
 		}
@@ -50,7 +52,6 @@ public class BaseballElimination {
 //	public Iterable<String> certificateOfElimination(String team)  // subset R of teams that eliminates given team; null if not eliminated
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		
 		BaseballElimination baseballTest = new BaseballElimination("C:/Users/ffonseca/workspace/Algorithms_2_Princeton_Assignment_3/teams5.txt");
 
