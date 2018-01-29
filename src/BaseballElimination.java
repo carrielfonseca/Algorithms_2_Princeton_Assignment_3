@@ -1,9 +1,11 @@
+import java.util.List;
+
 import edu.princeton.cs.algs4.In;
 
 public class BaseballElimination {
 	
 	private int n; //number of teams
-	private String[] team; //name  of the team
+	private List<String> teams; //name  of the team
 	private int[] w, l, r; //number of wins, losses and remaining games of teach team
 	private int[][] g; // games left to play of team i against team j
 	
@@ -27,7 +29,9 @@ public class BaseballElimination {
 		return n;
 	}
 	
-//	public Iterable<String> teams()                                // all teams
+	public Iterable<String> teams()   {                             // all teams
+		return teams;
+	}
 //	public              int wins(String team)                      // number of wins for given team
 //	public              int losses(String team)                    // number of losses for given team
 //	public              int remaining(String team)                 // number of remaining games for given team
