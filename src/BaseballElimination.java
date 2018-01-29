@@ -25,13 +25,13 @@ public class BaseballElimination {
 		in.readLine(); //skips blank character after reading n
 		while (!in.isEmpty()) {
 			String line = in.readLine();
-			String [] fields = line.split(" ");
-			teams.add(fields[1]);
-			w[i] = Integer.parseInt(fields[2]);
-			l[i] = Integer.parseInt(fields[3]);
-			r[i] = Integer.parseInt(fields[4]);
+			String [] fields = line.split(" +"); //needs to separate with one OR MORE white spaces
+			teams.add(fields[0]);
+			w[i] = Integer.parseInt(fields[1]);
+			l[i] = Integer.parseInt(fields[2]);
+			r[i] = Integer.parseInt(fields[3]);
 			for(int j = 0;j < n;j++) {
-				g[i][j] =  Integer.parseInt(fields[j+5]);
+				g[i][j] =  Integer.parseInt(fields[j+4]);
 			}				
 			i++;
 		}
