@@ -155,6 +155,21 @@ public class BaseballElimination {
 			}
 		}
 	}
+	
+	private void addEdgesFromGameVertices(FlowNetwork flowNetwork, int teamIndex) {
+		int sourceVertex = n; //starts from n is is updated within the method
+		for (int i = 0; i < n; i++) {
+			if (i == teamIndex) continue;
+			for (int j=(i+1); j < n; j++) {
+				if (j == teamIndex) continue;
+				FlowEdge flowEdge1 = new FlowEdge(sourceVertex, i, Double.POSITIVE_INFINITY , 0);
+				FlowEdge flowEdge2 = new FlowEdge(sourceVertex, j, Double.POSITIVE_INFINITY , 0);
+				flowNetwork.addEdge(flowEdge1);
+				flowNetwork.addEdge(flowEdge2);
+				sourceVertex++;
+			}
+		}
+	}
 
 	private void addEdgesToSinkVertex(FlowNetwork flowNetwork, int teamIndex, int sinkVertex) {
 		for (int i = 0; i < n; i++) {
