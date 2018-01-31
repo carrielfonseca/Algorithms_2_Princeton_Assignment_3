@@ -4,16 +4,17 @@ import java.util.List;
 import edu.princeton.cs.algs4.In;
 
 public class BaseballElimination {
-	
-	private int n; //number of teams
-	private List<String> teams; //name  of the team
-	private int[] w, l, r; //number of wins, losses and remaining games of teach team
+
+	private int n; // number of teams
+	private List<String> teams; // name of the team
+	private int[] w, l, r; // number of wins, losses and remaining games of teach team
 	private int[][] g; // games left to play of team i against team j
-	
-	// As in the second assignment, file will probably be in the src if in 
-	// command line or in the root if run on Eclipse. Used similar structure 
+
+	// As in the second assignment, file will probably be in the src if in
+	// command line or in the root if run on Eclipse. Used similar structure
 	// on assignment 1 of Algorithms 2 (synsets assignment)
-	public BaseballElimination(String filename) {	// create a baseball division from given filename in format specified below
+	public BaseballElimination(String filename) { // create a baseball division from given filename in format specified
+													// below
 		int i = 0;
 		In in = new In(filename);
 		n = in.readInt();
@@ -22,105 +23,114 @@ public class BaseballElimination {
 		l = new int[n];
 		r = new int[n];
 		g = new int[n][n];
-		in.readLine(); //skips blank character after reading n
+		in.readLine(); // skips blank character after reading n
 		while (!in.isEmpty()) {
 			String line = in.readLine();
-			String [] fields = line.split(" +"); //needs to separate with one OR MORE white spaces
+			String[] fields = line.split(" +"); // needs to separate with one OR MORE white spaces
 			teams.add(fields[0]);
 			w[i] = Integer.parseInt(fields[1]);
 			l[i] = Integer.parseInt(fields[2]);
 			r[i] = Integer.parseInt(fields[3]);
-			for(int j = 0;j < n;j++) {
-				g[i][j] =  Integer.parseInt(fields[j+4]);
-			}				
+			for (int j = 0; j < n; j++) {
+				g[i][j] = Integer.parseInt(fields[j + 4]);
+			}
 			i++;
 		}
 	}
-	
-	public int numberOfTeams() {  // number of teams
+
+	public int numberOfTeams() { // number of teams
 		return n;
 	}
-	
-	public Iterable<String> teams()   {                             // all teams
+
+	public Iterable<String> teams() { // all teams
 		return teams;
 	}
-	
-	public int wins(String team) {                  // number of wins for given team
+
+	public int wins(String team) { // number of wins for given team
 		int i = 0;
-		for(String teamName : teams) {
-			if(teamName.equalsIgnoreCase(team)) {
+		for (String teamName : teams) {
+			if (teamName.equalsIgnoreCase(team)) {
 				break;
 			}
-			i++;	
-		}		
+			i++;
+		}
 		return w[i];
 	}
-	
-	public int losses(String team)  {                  // number of losses for given team
+
+	public int losses(String team) { // number of losses for given team
 		int i = 0;
-		for(String teamName : teams) {
-			if(teamName.equalsIgnoreCase(team)) {
+		for (String teamName : teams) {
+			if (teamName.equalsIgnoreCase(team)) {
 				break;
 			}
-			i++;	
-		}		
+			i++;
+		}
 		return l[i];
 	}
-	
-	public	int remaining(String team)	{           // number of remaining games for given team
+
+	public int remaining(String team) { // number of remaining games for given team
 		int i = 0;
-		for(String teamName : teams) {
-			if(teamName.equalsIgnoreCase(team)) {
+		for (String teamName : teams) {
+			if (teamName.equalsIgnoreCase(team)) {
 				break;
 			}
-			i++;	
-		}		
+			i++;
+		}
 		return r[i];
 	}
-	
-		
-	
-	public	int against(String team1, String team2)  {  // number of remaining games between team1 and team2
+
+	public int against(String team1, String team2) { // number of remaining games between team1 and team2
 		int i = 0, j = 0, k = 0;
 		boolean foundTeam1 = false;
 		boolean foundTeam2 = false;
-		for(String teamName : teams) {
+		for (String teamName : teams) {
 			if (teamName.equalsIgnoreCase(team1)) {
 				i = k;
 				foundTeam1 = true;
-			}
-			else if (teamName.equalsIgnoreCase(team2)){
+			} else if (teamName.equalsIgnoreCase(team2)) {
 				j = k;
 				foundTeam2 = true;
 			}
 			if (foundTeam1 && foundTeam2) {
 				break;
 			}
-			k++;	
-		}		
+			k++;
+		}
 		return g[i][j];
 	}
-	
-//	public          boolean isEliminated(String team)              // is given team eliminated?
-//	public Iterable<String> certificateOfElimination(String team)  // subset R of teams that eliminates given team; null if not eliminated
+
+	// public boolean isEliminated(String team) // is given team eliminated?
+	// public Iterable<String> certificateOfElimination(String team) // subset R of teams that eliminates given team;
+	// null if not eliminated
 
 	private int teamIndex(String team) {
 		int i = 0;
-		for(String teamName : teams) {
-			if (teamName.equalsIgnoreCase(team)) {				
+		for (String teamName : teams) {
+			if (teamName.equalsIgnoreCase(team)) {
 				break;
 			}
 			i++;
-		}	
+		}
 		return i;
 	}
-	
-//	private boolean isTrivialElimination(String team) {
-//		
-//	}
+
+	private boolean isTrivialElimination(String team) {
+		boolean isTrivialElimination = false;
+		int i = teamIndex(team);
+		int thresholdWins = w[i] + r[i]; // maximum of wins the team can have in the league
+		for (int j = 0; j < n; j++) {
+			if (w[j] > thresholdWins) {
+				isTrivialElimination=true;
+				break;
+			}
+		}
+		return isTrivialElimination;
+	}
+
 	public static void main(String[] args) {
-		
-		BaseballElimination baseballTest = new BaseballElimination("C:/Users/ffonseca/workspace/Algorithms_2_Princeton_Assignment_3/teams5.txt");
+
+		BaseballElimination baseballTest = new BaseballElimination(
+				"C:/Users/ffonseca/workspace/Algorithms_2_Princeton_Assignment_3/teams5.txt");
 
 	}
 
