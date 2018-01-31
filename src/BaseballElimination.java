@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.princeton.cs.algs4.FlowEdge;
+import edu.princeton.cs.algs4.FlowNetwork;
 import edu.princeton.cs.algs4.In;
 
 public class BaseballElimination {
@@ -99,7 +101,21 @@ public class BaseballElimination {
 		return g[i][j];
 	}
 
-	// public boolean isEliminated(String team) // is given team eliminated?
+	// if not trivially eliminated, builds a flownetwork to check whether there will be a non-trivial elimination
+	public boolean isEliminated(String team) { // is given team eliminated?
+		boolean isEliminated = isTrivialElimination(team);
+		if (isEliminated) {
+			return true;
+		}
+		// number of vertices is the source vertex + possible combinations of remaining teams +
+		// + remaining teams + sink vertex
+		int numberOfVertices = 1 + (n - 1) * (n - 2) / 2 + (n - 1) + 1;
+		FlowNetwork flowNetwork = new FlowNetwork(numberOfVertices);
+		// to preserve a one to one mapping of the team vertices with the actual
+		// team index, the source vertex will be the team in question to be checked
+
+		return false;
+	}
 	// public Iterable<String> certificateOfElimination(String team) // subset R of teams that eliminates given team;
 	// null if not eliminated
 
@@ -120,18 +136,39 @@ public class BaseballElimination {
 		int thresholdWins = w[i] + r[i]; // maximum of wins the team can have in the league
 		for (int j = 0; j < n; j++) {
 			if (w[j] > thresholdWins) {
-				isTrivialElimination=true;
+				isTrivialElimination = true;
 				break;
 			}
 		}
 		return isTrivialElimination;
 	}
+	
+	private void addEdgesFromSourceVertex(FlowNetwork flowNetwork, int teamIndex, int sinkVertex) {
+		int targetVertex = n; //starts from n is is updated within the method
+		for (int i = 0; i < n; i++) {
+			if (i == teamIndex) continue;
+			for (int j=(i+1); j < n; j++) {
+				if (j == teamIndex) continue;
+				FlowEdge flowEdge = new FlowEdge(teamIndex, targetVertex, g[i][j] , 0);
+				flowNetwork.addEdge(flowEdge);
+				targetVertex++;
+			}
+		}
+	}
+
+	private void addEdgesToSinkVertex(FlowNetwork flowNetwork, int teamIndex, int sinkVertex) {
+		for (int i = 0; i < n; i++) {
+			if (i == teamIndex) {
+				continue; // the very team to be analyzed should not be here
+			}
+			FlowEdge flowEdge = new FlowEdge(teamIndex, sinkVertex, w[teamIndex]+r[teamIndex]-w[i] , 0);
+			flowNetwork.addEdge(flowEdge);
+		}
+	}
 
 	public static void main(String[] args) {
-
 		BaseballElimination baseballTest = new BaseballElimination(
 				"C:/Users/ffonseca/workspace/Algorithms_2_Princeton_Assignment_3/teams5.txt");
-
 	}
 
 }
