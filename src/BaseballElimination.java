@@ -104,6 +104,20 @@ public class BaseballElimination {
 //	public          boolean isEliminated(String team)              // is given team eliminated?
 //	public Iterable<String> certificateOfElimination(String team)  // subset R of teams that eliminates given team; null if not eliminated
 
+	private int teamIndex(String team) {
+		int i = 0;
+		for(String teamName : teams) {
+			if (teamName.equalsIgnoreCase(team)) {				
+				break;
+			}
+			i++;
+		}	
+		return i;
+	}
+	
+//	private boolean isTrivialElimination(String team) {
+//		
+//	}
 	public static void main(String[] args) {
 		
 		BaseballElimination baseballTest = new BaseballElimination("C:/Users/ffonseca/workspace/Algorithms_2_Princeton_Assignment_3/teams5.txt");
