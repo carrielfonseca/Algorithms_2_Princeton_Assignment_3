@@ -143,7 +143,7 @@ public class BaseballElimination {
 		return isTrivialElimination;
 	}
 	
-	private void addEdgesFromSourceVertex(FlowNetwork flowNetwork, int teamIndex, int sinkVertex) {
+	private void addEdgesFromSourceVertex(FlowNetwork flowNetwork, int teamIndex) {
 		int targetVertex = n; //starts from n is is updated within the method
 		for (int i = 0; i < n; i++) {
 			if (i == teamIndex) continue;
