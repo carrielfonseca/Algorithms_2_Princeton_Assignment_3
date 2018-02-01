@@ -3,6 +3,7 @@ import java.util.List;
 
 import edu.princeton.cs.algs4.FlowEdge;
 import edu.princeton.cs.algs4.FlowNetwork;
+import edu.princeton.cs.algs4.FordFulkerson;
 import edu.princeton.cs.algs4.In;
 
 public class BaseballElimination {
@@ -117,7 +118,8 @@ public class BaseballElimination {
 		addEdgesFromSourceVertex(flowNetwork, teamIndex);
 		addEdgesFromGameVertices(flowNetwork, teamIndex);
 		addEdgesToSinkVertex(flowNetwork, teamIndex, numberOfVertices-1); //sink vertext is the last index by the program convention
-
+        
+		FordFulkerson fordFulkerson = new FordFulkerson(flowNetwork, teamIndex, numberOfVertices-1);
 		return false;
 	}
 	// public Iterable<String> certificateOfElimination(String team) // subset R of teams that eliminates given team;
