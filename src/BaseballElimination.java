@@ -110,9 +110,13 @@ public class BaseballElimination {
 		// number of vertices is the source vertex + possible combinations of remaining teams +
 		// + remaining teams + sink vertex
 		int numberOfVertices = 1 + (n - 1) * (n - 2) / 2 + (n - 1) + 1;
+		int teamIndex = teamIndex(team);
 		FlowNetwork flowNetwork = new FlowNetwork(numberOfVertices);
 		// to preserve a one to one mapping of the team vertices with the actual
 		// team index, the source vertex will be the team in question to be checked
+		addEdgesFromSourceVertex(flowNetwork, teamIndex);
+		addEdgesFromGameVertices(flowNetwork, teamIndex);
+		addEdgesToSinkVertex(flowNetwork, teamIndex, numberOfVertices-1); //sink vertext is the last index by the program convention
 
 		return false;
 	}
@@ -157,7 +161,7 @@ public class BaseballElimination {
 	}
 	
 	private void addEdgesFromGameVertices(FlowNetwork flowNetwork, int teamIndex) {
-		int sourceVertex = n; //starts from n is is updated within the method
+		int sourceVertex = n; //starts from n and is updated within the method
 		for (int i = 0; i < n; i++) {
 			if (i == teamIndex) continue;
 			for (int j=(i+1); j < n; j++) {
