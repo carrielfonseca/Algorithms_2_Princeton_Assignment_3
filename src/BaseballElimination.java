@@ -29,7 +29,7 @@ public class BaseballElimination {
 		g = new int[n][n];
 		in.readLine(); // skips blank character after reading n
 		while (!in.isEmpty()) {
-			String line = in.readLine();
+			String line = in.readLine().trim();
 			String[] fields = line.split(" +"); // needs to separate with one OR MORE white spaces
 			teams.add(fields[0]);
 			w[i] = Integer.parseInt(fields[1]);
@@ -262,9 +262,10 @@ public class BaseballElimination {
 		}
 	}
 
+	// UnitTests provided by the course with slight tweaks
 	public static void main(String[] args) {
 		BaseballElimination division = new BaseballElimination(
-				"C:/Users/ffonseca/workspace/Algorithms_2_Princeton_Assignment_3/teams4.txt");
+				"C:/Users/ffonseca/workspace/Algorithms_2_Princeton_Assignment_3/teams32.txt");
 		
 		for (String team : division.teams()) {
 	        if (division.isEliminated(team)) {
