@@ -156,6 +156,21 @@ public class BaseballElimination {
 		return isTrivialElimination;
 	}
 	
+	//returns -1 if there is not such a team
+	private int indexOfOneTeamThatEliminatesTheOther(String team) {
+		boolean isTrivialElimination = false;
+		int i = teamIndex(team);
+		int k = -1;
+		int thresholdWins = w[i] + r[i]; // maximum of wins the team can have in the league
+		for (int j = 0; j < n; j++) {
+			if (w[j] > thresholdWins) {
+				isTrivialElimination = true;
+				break;
+			}
+		}
+		return k;
+	}
+	
 	private void addEdgesFromSourceVertex(FlowNetwork flowNetwork, int teamIndex) {
 		int targetVertex = n; //starts from n is is updated within the method
 		for (int i = 0; i < n; i++) {
@@ -196,9 +211,9 @@ public class BaseballElimination {
 
 	public static void main(String[] args) {
 		BaseballElimination baseballTest = new BaseballElimination(
-				"C:/Users/ffonseca/workspace/Algorithms_2_Princeton_Assignment_3/teams4.txt");
+				"C:/Users/ffonseca/workspace/Algorithms_2_Princeton_Assignment_3/teams7.txt");
 		
-		baseballTest.isEliminated("Philadelphia");
+		baseballTest.isEliminated("Ireland");
 	}
 
 }
