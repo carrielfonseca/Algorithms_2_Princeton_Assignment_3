@@ -5,6 +5,7 @@ import edu.princeton.cs.algs4.FlowEdge;
 import edu.princeton.cs.algs4.FlowNetwork;
 import edu.princeton.cs.algs4.FordFulkerson;
 import edu.princeton.cs.algs4.In;
+import edu.princeton.cs.algs4.StdOut;
 
 public class BaseballElimination {
 
@@ -216,7 +217,7 @@ public class BaseballElimination {
 		int thresholdWins = w[i] + r[i]; // maximum of wins the team can have in the league
 		for (int j = 0; j < n; j++) {
 			if (w[j] > thresholdWins) {
-				isTrivialElimination = true;
+				k = j;
 				break;
 			}
 		}
@@ -262,10 +263,20 @@ public class BaseballElimination {
 	}
 
 	public static void main(String[] args) {
-		BaseballElimination baseballTest = new BaseballElimination(
-				"C:/Users/ffonseca/workspace/Algorithms_2_Princeton_Assignment_3/teams7.txt");
+		BaseballElimination division = new BaseballElimination(
+				"C:/Users/ffonseca/workspace/Algorithms_2_Princeton_Assignment_3/teams4.txt");
 		
-		baseballTest.isEliminated("Ireland");
+		for (String team : division.teams()) {
+	        if (division.isEliminated(team)) {
+	            StdOut.print(team + " is eliminated by the subset R = { ");
+	            for (String t : division.certificateOfElimination(team)) {
+	                StdOut.print(t + " ");
+	            }
+	            StdOut.println("}");
+	        }
+	        else {
+	            StdOut.println(team + " is not eliminated");
+	        }
+	    }
 	}
-
 }
