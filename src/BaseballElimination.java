@@ -122,12 +122,13 @@ public class BaseballElimination {
 		FordFulkerson fordFulkerson = new FordFulkerson(flowNetwork, teamIndex, numberOfVertices-1);
 		
 		for (int i = 0; i < n; i++) {
-			boolean test = fordFulkerson.inCut(i);
-			System.out.println(test);
-		}
-		double maxFlow = fordFulkerson.value();
-		
-		return false;
+			boolean isOnSourceSide = fordFulkerson.inCut(i);
+			if (isOnSourceSide && i != teamIndex) {
+				isEliminated = true;
+				break;
+			}
+		}		
+		return isEliminated;
 	}
 	// public Iterable<String> certificateOfElimination(String team) // subset R of teams that eliminates given team;
 	// null if not eliminated
