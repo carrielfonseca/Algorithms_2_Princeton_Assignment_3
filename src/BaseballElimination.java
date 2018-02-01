@@ -120,6 +120,13 @@ public class BaseballElimination {
 		addEdgesToSinkVertex(flowNetwork, teamIndex, numberOfVertices-1); //sink vertext is the last index by the program convention
         
 		FordFulkerson fordFulkerson = new FordFulkerson(flowNetwork, teamIndex, numberOfVertices-1);
+		
+		for (int i = 0; i < n; i++) {
+			boolean test = fordFulkerson.inCut(i);
+			System.out.println(test);
+		}
+		double maxFlow = fordFulkerson.value();
+		
 		return false;
 	}
 	// public Iterable<String> certificateOfElimination(String team) // subset R of teams that eliminates given team;
@@ -182,14 +189,16 @@ public class BaseballElimination {
 			if (i == teamIndex) {
 				continue; // the very team to be analyzed should not be here
 			}
-			FlowEdge flowEdge = new FlowEdge(teamIndex, sinkVertex, w[teamIndex]+r[teamIndex]-w[i] , 0);
+			FlowEdge flowEdge = new FlowEdge(i, sinkVertex, w[teamIndex]+r[teamIndex]-w[i] , 0);
 			flowNetwork.addEdge(flowEdge);
 		}
 	}
 
 	public static void main(String[] args) {
 		BaseballElimination baseballTest = new BaseballElimination(
-				"C:/Users/ffonseca/workspace/Algorithms_2_Princeton_Assignment_3/teams5.txt");
+				"C:/Users/ffonseca/workspace/Algorithms_2_Princeton_Assignment_3/teams4.txt");
+		
+		baseballTest.isEliminated("Philadelphia");
 	}
 
 }
