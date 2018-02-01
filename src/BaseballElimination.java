@@ -130,8 +130,15 @@ public class BaseballElimination {
 		}		
 		return isEliminated;
 	}
-	// public Iterable<String> certificateOfElimination(String team) // subset R of teams that eliminates given team;
+	
+     // subset R of teams that eliminates given team;	
 	// null if not eliminated
+	 public Iterable<String> certificateOfElimination(String team)  {	 
+		 List<String> listOfTeams = null;
+		 int index = indexOfOneTeamThatEliminatesTheOther(team);
+	 
+	 }
+	
 
 	private int teamIndex(String team) {
 		int i = 0;
@@ -142,6 +149,19 @@ public class BaseballElimination {
 			i++;
 		}
 		return i;
+	}
+	
+	private String teamName(int teamIndex) {
+		int i = 0;
+		String teamName = null;
+		for (String team : teams) {
+			if (i == teamIndex) {				
+				teamName = team;
+				break;
+			}
+			i++;
+		}
+		return teamName;
 	}
 
 	private boolean isTrivialElimination(String team) {
