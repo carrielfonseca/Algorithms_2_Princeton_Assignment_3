@@ -131,12 +131,43 @@ public class BaseballElimination {
 		return isEliminated;
 	}
 	
-     // subset R of teams that eliminates given team;	
-	// null if not eliminated
-	 public Iterable<String> certificateOfElimination(String team)  {	 
-		 List<String> listOfTeams = null;
-		 int index = indexOfOneTeamThatEliminatesTheOther(team);
-	 
+    //  subset R of teams that eliminates given team;	
+	//  null if not eliminated
+	public Iterable<String> certificateOfElimination(String team)  {	 
+		List<String> listOfTeamsThatEliminatesTheOtherTeam = new ArrayList<String>();
+	    int index = indexOfOneTeamThatEliminatesTheOther(team);
+	    if (index != -1) {
+	    	String teamThatElminates = teamName(index);
+	    	listOfTeamsThatEliminatesTheOtherTeam.add(teamThatElminates);
+	    } 
+	    // now tries the non-trivial elimination with Ford-Fulkerson
+	    else {
+	    	// number of vertices is the source vertex + possible combinations of remaining teams +
+			// + remaining teams + sink vertex
+			int numberOfVertices = 1 + (n - 1) * (n - 2) / 2 + (n - 1) + 1;
+			int teamIndex = teamIndex(team);
+			FlowNetwork flowNetwork = new FlowNetwork(numberOfVertices);
+			// to preserve a one to one mapping of the team vertices with the actual
+			// team index, the source vertex will be the team in question to be checked
+			addEdgesFromSourceVertex(flowNetwork, teamIndex);
+			addEdgesFromGameVertices(flowNetwork, teamIndex);
+			addEdgesToSinkVertex(flowNetwork, teamIndex, numberOfVertices-1); //sink vertext is the last index by the program convention
+	        
+			FordFulkerson fordFulkerson = new FordFulkerson(flowNetwork, teamIndex, numberOfVertices-1);
+			// if on source side, than include in the set R of teams that eliminates the other
+			for (int i = 0; i < n; i++) {
+				boolean isOnSourceSide = fordFulkerson.inCut(i);
+				if (isOnSourceSide && i != teamIndex) {
+					listOfTeamsThatEliminatesTheOtherTeam.add(teamName(i));
+				}
+			}	    	
+	    }
+	    if (listOfTeamsThatEliminatesTheOtherTeam.isEmpty()) {
+	    	return null;
+	    }
+	    else {
+	    	return listOfTeamsThatEliminatesTheOtherTeam;
+	    }	    
 	 }
 	
 
