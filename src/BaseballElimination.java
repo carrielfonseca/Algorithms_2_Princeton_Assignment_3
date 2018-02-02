@@ -211,7 +211,6 @@ public class BaseballElimination {
 	
 	//returns -1 if there is not such a team
 	private int indexOfOneTeamThatEliminatesTheOther(String team) {
-		boolean isTrivialElimination = false;
 		int i = teamIndex(team);
 		int k = -1;
 		int thresholdWins = w[i] + r[i]; // maximum of wins the team can have in the league
