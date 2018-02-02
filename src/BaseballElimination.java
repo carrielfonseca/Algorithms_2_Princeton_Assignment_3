@@ -95,7 +95,8 @@ public class BaseballElimination {
 			if (teamName.equalsIgnoreCase(team1)) {
 				i = k;
 				foundTeam1 = true;
-			} else if (teamName.equalsIgnoreCase(team2)) {
+			}
+			if (teamName.equalsIgnoreCase(team2)) { //cannot be else if, other wise will not work when team 1 and team 2 are the same
 				j = k;
 				foundTeam2 = true;
 			}
@@ -286,6 +287,6 @@ public class BaseballElimination {
 	        else {
 	            StdOut.println(team + " is not eliminated");
 	        }
-	    }
+	    }		
 	}
 }
