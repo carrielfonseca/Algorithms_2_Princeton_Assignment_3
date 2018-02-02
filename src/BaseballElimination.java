@@ -51,6 +51,7 @@ public class BaseballElimination {
 	}
 
 	public int wins(String team) { // number of wins for given team
+		if (teamIndex(team) == -1) throw new java.lang.IllegalArgumentException("team does not exist");
 		int i = 0;
 		for (String teamName : teams) {
 			if (teamName.equalsIgnoreCase(team)) {
@@ -62,6 +63,7 @@ public class BaseballElimination {
 	}
 
 	public int losses(String team) { // number of losses for given team
+		if (teamIndex(team) == -1) throw new java.lang.IllegalArgumentException("team does not exist");
 		int i = 0;
 		for (String teamName : teams) {
 			if (teamName.equalsIgnoreCase(team)) {
@@ -73,6 +75,7 @@ public class BaseballElimination {
 	}
 
 	public int remaining(String team) { // number of remaining games for given team
+		if (teamIndex(team) == -1) throw new java.lang.IllegalArgumentException("team does not exist");
 		int i = 0;
 		for (String teamName : teams) {
 			if (teamName.equalsIgnoreCase(team)) {
@@ -84,6 +87,7 @@ public class BaseballElimination {
 	}
 
 	public int against(String team1, String team2) { // number of remaining games between team1 and team2
+		if (teamIndex(team1) == -1 || teamIndex(team2) == -1) throw new java.lang.IllegalArgumentException("one of the team does not exist");
 		int i = 0, j = 0, k = 0;
 		boolean foundTeam1 = false;
 		boolean foundTeam2 = false;
@@ -105,6 +109,7 @@ public class BaseballElimination {
 
 	// if not trivially eliminated, builds a flownetwork to check whether there will be a non-trivial elimination
 	public boolean isEliminated(String team) { // is given team eliminated?
+		if (teamIndex(team) == -1) throw new java.lang.IllegalArgumentException("team does not exist");
 		boolean isEliminated = isTrivialElimination(team);
 		if (isEliminated) {
 			return true;
@@ -134,7 +139,8 @@ public class BaseballElimination {
 	
     //  subset R of teams that eliminates given team;	
 	//  null if not eliminated
-	public Iterable<String> certificateOfElimination(String team)  {	 
+	public Iterable<String> certificateOfElimination(String team)  {
+		if (teamIndex(team) == -1) throw new java.lang.IllegalArgumentException("team does not exist");
 		List<String> listOfTeamsThatEliminatesTheOtherTeam = new ArrayList<String>();
 	    int index = indexOfOneTeamThatEliminatesTheOther(team);
 	    if (index != -1) {
@@ -171,7 +177,7 @@ public class BaseballElimination {
 	    }	    
 	 }
 	
-
+    //if the team does not exist, return -1
 	private int teamIndex(String team) {
 		int i = 0;
 		for (String teamName : teams) {
@@ -179,6 +185,9 @@ public class BaseballElimination {
 				break;
 			}
 			i++;
+		}
+		if (i == teams.size()) {
+			i = -1;
 		}
 		return i;
 	}
